@@ -34,23 +34,24 @@ const pool = new Pool({
     const username = req.body.username;
     const password = req.body.password;
   
-       pool.query(
-        "SELECT * FROM usuario WHERE id_usuario = ? AND contraseña = ?",
-        [username, password],
-        (err, result) => {
-          if (err){
-          res.send({err: err});
-          }
+    pool.query(
+      "SELECT * FROM usuario WHERE id_usuario = ? AND contraseña = ?",
+      [username, password],
+      (err, result) => {
+        if (err) {
+          res.send({ err: err });
+        }
           
-            if (result.length > 0){
-              res.send(result);
-            } else {
-              res.send({message: "Usuario o contraseña invalidos"});
-            }
+        if (result.length > 0){
+          res.send(result);
+        } else {
+          res.send({message: "Usuario o contraseña invalidos"});
           
         }
-      );
-    });
+          
+      }
+    );
+  });
 
   app.listen(3003, () => {
     console.log("running server");

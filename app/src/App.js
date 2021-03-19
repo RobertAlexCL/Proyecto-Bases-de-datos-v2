@@ -17,12 +17,7 @@ function App() {
       username: usernameReg,
       password: passwordReg,
     }).then((response) => {
-
-      if(response.data.message){
-        setLoginStatus(response.data.message);
-      } else {
-        setLoginStatus(response.data[0].username);
-      }
+      console.log(response);
     });
   };
 
@@ -31,7 +26,11 @@ function App() {
       username: username,
       password: password,
     }).then((response) => {
-      console.log(response.data);
+      if (response.data.message) {
+        setLoginStatus(response.data.message);
+      } else {
+        setLoginStatus(response.data[0].username);
+      }
     });
   };
 
