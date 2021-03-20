@@ -21,10 +21,11 @@ const pool = new Pool({
     const password = req.body.password;
   
        pool.query(
-        "INSERT INTO usuario (id_usuario, contraseña) VALUES (?, ?)",
+        "INSERT INTO usuario (id_usuario, contraseña) VALUES ($1, $2)",
         [username, password],
         (err, result) => {
           console.log(err);
+          res.status(200).send("Usuario registrado");
         }
       );
     });
@@ -35,19 +36,13 @@ const pool = new Pool({
     const password = req.body.password;
   
     pool.query(
-      "SELECT * FROM usuario WHERE id_usuario = ? AND contraseña = ?",
+      "SELECT * FROM usuario WHERE id_usuario = $1 AND contraseña = $2",
       [username, password],
       (err, result) => {
         if (err) {
-          res.send({ err: err });
+          throw err;
         }
-          
-        if (result.length > 0){
-          res.send(result);
-        } else {
-          res.send({message: "Usuario o contraseña invalidos"});
-          
-        }
+        res.status(200).json(result.rows);
           
       }
     );
