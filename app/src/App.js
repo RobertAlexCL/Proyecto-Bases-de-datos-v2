@@ -26,10 +26,11 @@ function App() {
       username: username,
       password: password,
     }).then((response) => {
-      if (response.data.message) {
-        setLoginStatus(response.data.message);
+      console.log(response.data); 
+      if (response.data && response.data[0]) {
+        setLoginStatus("Usuario logueado");
       } else {
-        setLoginStatus(response.data[0].username);
+        setLoginStatus("No se pudo loguear");
       }
     });
   };
